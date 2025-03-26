@@ -1,6 +1,6 @@
 numpy
 streamlit
-albumentations
 ultralytics
-opencv-python
 matplotlib
+opencv-python==4.10.0
+albumentations==2.0.5
