@@ -1,0 +1,7 @@
+numpy
+streamlit
+io
+albumentations
+ultralytics
+cv2
+matplotlib
