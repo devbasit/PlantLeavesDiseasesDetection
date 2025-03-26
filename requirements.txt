@@ -1,7 +1,6 @@
-opencv-python==4.10.0.82
+opencv-python==4.11.0.86
 albumentations==2.0.5
 numpy
 streamlit
 ultralytics
 matplotlib
-
