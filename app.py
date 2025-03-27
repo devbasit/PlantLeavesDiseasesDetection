@@ -1,14 +1,26 @@
-import cv2
 import numpy as np
 import streamlit as st 
 from io import BytesIO
-import torch
+import albumentations as A 
+from albumentations.pytorch import ToTensorV2 
 from ultralytics import YOLO
+import cv2
 import matplotlib.pyplot as plt
 
 from PIL import Image
 
-
+inference_transform = A.Compose( 
+	[ 
+		A.LongestMaxSize(max_size=1024),
+		A.PadIfNeeded( 
+			min_height=1024, min_width=1024, border_mode=cv2.BORDER_CONSTANT
+		),
+		A.Normalize(
+			mean=[0, 0, 0], std=[1, 1, 1], max_pixel_value=255
+		), 
+		ToTensorV2() 
+	],
+) 
 models = {
     'NOVEL': 'models/best_float16.tflite', "YOLOv5n":'models/best_v5n.pt',
     "YOLOv5m":'models/best_v5m.pt', "YOLOv5x":'models/best_v5x.pt',
@@ -32,7 +44,8 @@ def main():
         bytesImg = BytesIO(byteImage.getvalue())
         image = Image.open(bytesImg)
         img_array= np.array(image)
-        image_array = torch.from_numpy(cv2.resize(image_array, (1024, 1024)))
+        augs = inference_transform(image =img_array)
+
         #display image
         st.image(image)
 
@@ -41,7 +54,7 @@ def main():
     model = YOLO(models[model_name], task = 'detect')
 
     if st.button("Detect") and image:
-        results = model(image_array.permute(2,0,1).unsqueeze(dim = 0))
+        results = model(augs['image'].unsqueeze(dim = 0))
         res = results[0].plot()
         st.image(Image.fromarray(res))
         
