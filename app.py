@@ -23,10 +23,11 @@ inference_transform = A.Compose(
 ) 
 models = {
     'NOVEL': 'models/novel model.pt', "YOLOv5n":'models/best_v5n.pt',
-    "YOLOv5m":'models/best_v5m.pt', "YOLOv5x":'models/best_v5x.pt',
-    "YOLOv8n":'models/best_v8n.pt', "YOLOv8m":'models/best_v8m.pt',
-    "YOLOv8x":'models/best_v8x.pt',"YOLO11n":'models/best_11n.pt',
-    "YOLO11m":'models/best_11m.pt', "YOLO11x":'models/best_11x.pt'
+    # "YOLOv5m":'models/best_v5m.pt', "YOLOv5x":'models/best_v5x.pt',
+    # "YOLOv8n":'models/best_v8n.pt', "YOLOv8m":'models/best_v8m.pt',
+    # "YOLOv8x":'models/best_v8x.pt',
+	"YOLO11n":'models/best_11n.pt',
+    # "YOLO11m":'models/best_11m.pt', "YOLO11x":'models/best_11x.pt'
     }
 
 def main():
